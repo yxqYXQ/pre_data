@@ -39,15 +39,15 @@ public class FileNumber {
         }
     }
     public static void main(String[] args) {
-        FileNumber fw = new FileNumber();
+
 //        String path1= "file1/";
 //        search("");
-//        fw.walk("file" ,path1);
+//        walk("file/" ,path1);
         String path1= "G:\\开题\\data_new\\file1\\";
         search("G:\\开题\\data_new\\");
-        fw.walk("G:\\开题\\data_new\\file\\" ,path1);
+        walk("G:\\开题\\data_new\\file\\" ,path1);
     }
-    public void walk( String path ,String path1) {
+    public static void walk( String path ,String path1) {
 
         File root = new File( path );
         File[] list = root.listFiles();

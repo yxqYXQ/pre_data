@@ -11,9 +11,12 @@ import java.util.HashMap;
 public class Http_data {
     public static void main(String[] args) {
         try {
-
-            BufferedReader reader = new BufferedReader(new FileReader("G:\\开题\\用户行为\\数据集\\r6.2\\http.csv"));//换成你的文件名
-            BufferedReader reader1 = new BufferedReader(new FileReader("G:\\开题\\用户行为\\数据集\\r6.2\\LDAP\\2009-12.csv"));//换成你的文件名
+          // String path1 = "",path2="",path="http/";
+           String path1="G:\\开题\\用户行为\\数据集\\r6.2\\";
+            String path2="G:\\开题\\用户行为\\数据集\\r6.2\\LDAP\\";
+            String path="G:\\开题\\用户行为\\data_new\\http\\";
+            BufferedReader reader = new BufferedReader(new FileReader(path1+"http.csv"));//换成你的文件名
+            BufferedReader reader1 = new BufferedReader(new FileReader(path2+"2009-12.csv"));//换成你的文件名
 
             reader1.readLine();//第一行信息，为标题信息，不用，如果需要，注释掉
             String line = null;
@@ -41,7 +44,7 @@ public class Http_data {
                 String userMessage = userMap.get(colValue);
                 if(userMessage!=null&&!userMessage.equals("")) {
                     String http = item[0] + "," + item[1] + "," + item[3] + "," + item[4] + "," + item[5];
-                    write("http_" + colValue + "_2009_12", userMessage, http);
+                    write(path,"http_" + colValue + "_2009_12", userMessage, http);
                 }
             }
         } catch (Exception e) {
@@ -50,10 +53,10 @@ public class Http_data {
         System.out.println("ok");
     }
 
-    public static void write(String path, String str1, String str2) {
+    public static void write(String path, String str1, String str2,String path1) {
 
         try {
-            File csv = new File("G:\\开题\\data_new\\http\\" + path + ".csv"); // CSV数据文件
+            File csv = new File(path1 + path + ".csv"); // CSV数据文件
 
             BufferedWriter bw = new BufferedWriter(new FileWriter(csv, true)); // 附加
             // 添加新的数据行

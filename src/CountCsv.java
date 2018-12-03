@@ -12,7 +12,7 @@ public class CountCsv {
     }
 
     public void compareBufferAndLineNumber() throws IOException {
-        String fileName = "G:\\开题\\用户行为\\数据集\\r6.2\\file.csv";
+        String fileName = "G:\\开题\\用户行为\\数据集\\r6.2\\email.csv";
 
        // String fileName = "http.csv";
 

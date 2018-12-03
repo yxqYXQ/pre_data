@@ -12,9 +12,13 @@ public class Email_data {
 
     public static void main(String[] args) {
         try {
-
-            BufferedReader reader = new BufferedReader(new FileReader("email.csv"));//换成你的文件名
-            BufferedReader reader1 = new BufferedReader(new FileReader("2009-12.csv"));//换成你的文件名
+            String path1="",path2="",path="email/";
+//
+//            String path1="G:\\开题\\用户行为\\数据集\\r6.2\\";
+//            String path2="G:\\开题\\用户行为\\数据集\\r6.2\\LDAP\\";
+//            String path = "G:\\开题\\data_new\\email\\";
+            BufferedReader reader = new BufferedReader(new FileReader(path1+"email.csv"));//换成你的文件名
+            BufferedReader reader1 = new BufferedReader(new FileReader(path2+"2009-12.csv"));//换成你的文件名
 
             reader1.readLine();//第一行信息，为标题信息，不用，如果需要，注释掉
             String line = null;
@@ -41,19 +45,19 @@ public class Email_data {
                 String colValue = item[col - 1];//这里
                 String userMessage = userMap.get(colValue);
                 if(userMessage!=null&&!userMessage.equals("")) {
-                    String email = item[0] + "," + item[1] + "," + item[3] + "," + item[4] + "," + item[5] + "," + item[6] + "," + item[7] + "," + item[8] + "," + item[9];
-                    write("email_" + colValue + "_2009_12", userMessage, email);
+                    String email = item[0] + "," + item[1] + "," + item[3] + "," + item[4] + "," + item[5] + "," + item[6] + "," + item[7] + "," + item[8] + "," + item[9]+","+item[10];
+                    write(path,"email_" + colValue + "_2009_12", userMessage, email);
                 }
-                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static void write(String path, String str1, String str2) {
+    public static void write(String path1,String path,String str1, String str2) {
 
         try {
-            File csv = new File("email/" + path + ".csv"); // CSV数据文件
+            File csv = new File(path1 + path + ".csv"); // CSV数据文件
 
             BufferedWriter bw = new BufferedWriter(new FileWriter(csv, true)); // 附加
             // 添加新的数据行

@@ -27,10 +27,10 @@ public class CountData_File {
         }
     }
     public static void main(String[] args) {
-//        String path1= "file2/";
-//        fw.walk("file1" ,path1);
-          String path1= "G:\\开题\\data_new\\file2\\";
-          walk("G:\\开题\\data_new\\file1\\" ,path1);
+        String path1= "file2/";
+        walk("file1" ,path1);
+//          String path1= "G:\\开题\\data_new\\file2\\";
+//          walk("G:\\开题\\data_new\\file1\\" ,path1);
     }
     //写入表头
     public static void writeHeader(String path){
@@ -38,7 +38,7 @@ public class CountData_File {
             File csv = new File(path); // CSV数据文件
             BufferedWriter bw = new BufferedWriter(new FileWriter(csv, true));
             String header ="role,projects,business_unit,functional_unit,department,team,supervisor";
-            for (int i = 0; i < 256; i++) {
+            for (int i = 0; i < 192; i++) {
                 header+=",to_remove,from_remove,date,activity,isDecoy,isCommon,count";
             }
             bw.write(header);
@@ -53,6 +53,7 @@ public class CountData_File {
         String userMesage = "";
         try {
             BufferedReader reader1 = new BufferedReader(new FileReader(path));//鎹㈡垚浣犵殑鏂囦欢鍚?
+            reader1.readLine();//第一行信息，为标题信息，不用，如果需要，注释掉
             String line1 = null;
             String strNew[] = null;
             while ((line1 = reader1.readLine()) != null) {
@@ -77,7 +78,7 @@ public class CountData_File {
             File tempFile =new File( path.trim());
             String fileName = tempFile.getName();
             fileNameNew = fileName;
-
+             int total = 0;
             HashMap<String,String> map = new HashMap<>();
             while ((line1 = reader1.readLine()) != null) {
                 String item[] = line1.split(",");//一行数组
@@ -93,6 +94,7 @@ public class CountData_File {
                 String key=to_remove+","+from_remove+","+time+ "," +activity + "," +  isDecoy + "," + isCommon;
                 map.put(key, str);
             }
+
             write(userMessage,path1+fileNameNew,set,map);
         } catch (Exception e) {
             e.printStackTrace();
@@ -105,10 +107,10 @@ public class CountData_File {
             BufferedWriter bw = new BufferedWriter(new FileWriter(csv, true));
             String time[] = {" 00:00:00-05:59:59"," 06:00:00-11:59:59"," 12:00:00-17:59:59"," 18:00:00-23:59:59"};
             String activity[] = {"File Open","File Write","File Delete","File Copy"};
-            String to_remove[]={"True,True","True,False","False,False","False,True"};
+            String to_remove[]={"True,False","False,False","False,True"};
             String decoy_common[]={"1,1","1,0","0,1","0,0"};
-            int total = 0;
-            int sizes = 0;
+//            int total = 0;
+//            int sizes = 0;
                 for (String key:set) {
                 String value = "";
                 for (int j = 0; j < time.length; j++) {
@@ -119,10 +121,9 @@ public class CountData_File {
                                    String keys = to_remove[k]+","+key + time[j] + "," + activity[i] + "," +decoy_common[l];
                                 if (map.get(keys) != null) {
                                     value += map.get(keys) + ",";
-                                    String totals[]=map.get(keys).split(",");
-                                    int aa=Integer.valueOf(totals[totals.length-1]);
-                                    total +=aa ;
-                                    sizes++;
+//                                    String totals[]=map.get(keys).split(",");
+//                                    int aa=Integer.valueOf(totals[totals.length-1]);
+//                                    total+=aa;
                                 } else {
                                     value += keys + "," + "0" + ",";
                                 }
@@ -132,8 +133,6 @@ public class CountData_File {
                     }
 
                 }
-                System.out.println(total);
-                System.out.println("si" +sizes);
                 String str = userMessage+value.substring(0,value.length()-1);
                 bw.write(str);
                 bw.newLine();
